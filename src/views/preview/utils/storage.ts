@@ -19,18 +19,21 @@ export const getSessionStorageInfo = () => {
   //   StorageEnum.GO_CHART_STORAGE_LIST
   // )
 
-  get('data-service/api/byId', {
-    largeScreenID: id.toString()
-  }).then(res => {
-    if (res.code == 0) {
-      let dataSource = JSON.parse(res.data.source[0].data_source)
-      const { editCanvasConfig, requestGlobalConfig, componentList } = dataSource
-          chartEditStore.editCanvasConfig = editCanvasConfig
-          chartEditStore.requestGlobalConfig = requestGlobalConfig
-          chartEditStore.componentList = componentList
-      return dataSource
-    }
+  return new Promise(function (resolve, reject) {
+    get('data-service/api/byId', {
+      largeScreenID: id.toString()
+    }).then(res => {
+      if (res.code == 0) {
+        let dataSource = JSON.parse(res.data.source[0].data_source)
+        const { editCanvasConfig, requestGlobalConfig, componentList } = dataSource
+        chartEditStore.editCanvasConfig = editCanvasConfig
+        chartEditStore.requestGlobalConfig = requestGlobalConfig
+        chartEditStore.componentList = componentList
+        resolve(dataSource)
+      }
+    })
   })
+
   // console.log('storageList', id.toString())
   // for (let i = 0; i < storageList.length; i++) {
   //   if (id.toString() === storageList[i]['large_screen_iD']) {
