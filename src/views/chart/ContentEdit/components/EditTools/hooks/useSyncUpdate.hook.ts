@@ -8,20 +8,22 @@ import { ChartEnum } from '@/enums/pageEnum'
 import { SavePageEnum } from '@/enums/editPageEnum'
 import { editToJsonInterval } from '@/settings/designSetting'
 import { goDialog } from '@/utils'
-
+import { get } from '@/api/http'
 const { updateComponent } = useSync()
 const chartEditStore = useChartEditStore()
 
 export const syncData = () => {
-  goDialog({
-    message: '是否覆盖源视图内容，此操作不可撤回?',
-    isMaskClosable: true,
-    transformOrigin: 'center',
-    onPositiveCallback: () => {
+
       window['$message'].success('正在同步编辑器...')
-      dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo() }))
-    }
-  })
+      // dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo() }))
+      get('data-service/api/byId', {
+        largeScreenID: "12"
+      }).then(res => {
+        let detail = JSON.parse(res.data.source[0].data_source);
+        dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail: detail }))
+      })
+    
+
 }
 
 // 同步数据到预览页

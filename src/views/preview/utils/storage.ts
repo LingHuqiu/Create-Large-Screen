@@ -18,7 +18,7 @@ export const getSessionStorageInfo = () => {
   // const storageList: ChartEditStorageType[] = getSessionStorage(
   //   StorageEnum.GO_CHART_STORAGE_LIST
   // )
-
+// 预览页面调接口
   return new Promise(function (resolve, reject) {
     get('data-service/api/byId', {
       largeScreenID: id.toString()

@@ -131,7 +131,6 @@ async function updateSync() {
         window['$message'].success('正在同步内容...')
       } catch (e) {
         window['$message'].error('内容格式有误')
-        console.log(e)
       }
     }
   })

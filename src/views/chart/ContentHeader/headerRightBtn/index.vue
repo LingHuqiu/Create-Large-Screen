@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed,onMounted } from 'vue'
 import { renderIcon, goDialog, fetchPathByName, routerTurnByPath, setSessionStorage, getLocalStorage } from '@/utils'
 import { PreviewEnum } from '@/enums/pageEnum'
 import { StorageEnum } from '@/enums/storageEnum'
@@ -24,7 +24,11 @@ const { BrowsersOutlineIcon, SendIcon, AnalyticsIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 
 const routerParamsInfo = useRoute()
-
+onMounted(() => {
+  setTimeout(() => {
+    syncData()
+  },1000)
+})
 // 预览
 const previewHandle = () => {
   const path = fetchPathByName(PreviewEnum.CHART_PREVIEW_NAME, 'href')
@@ -58,7 +62,6 @@ const previewHandle = () => {
 // 发布
 const sendHandle = () => {
   const { id } = routerParamsInfo.params
-  // console.log(chartEditStore.getStorageInfo())
   // 保存按钮在这里！！
   put('/data-service/api/updateDataSource', {
     largeScreenID: id[0],
@@ -95,7 +98,7 @@ const comBtnList = computed(() => {
     return btnList
   }
   const cloneList = cloneDeep(btnList)
-  cloneList.shift()
+  // cloneList.shift()
   return cloneList
 })
 </script>
