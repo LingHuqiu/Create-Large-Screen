@@ -7,7 +7,7 @@
         <n-space class="list-content-top go-px-0" justify="center">
           <n-space>
             <n-text>
-              {{ cardData?.title || '' }}
+              {{ cardData?.large_screen_name || '' }}
             </n-text>
           </n-space>
         </n-space>
@@ -17,7 +17,7 @@
         </n-space>
         <!-- 中间 -->
         <div class="list-content-img">
-          <img :src="requireUrl('project/moke-20211219181327.png')" :alt="cardData?.title" />
+          <img :src="' http://222.222.68.137:9140/' + cardData.thumbnail" :alt="cardData?.large_screen_name" />
         </div>
       </div>
       <template #action>
@@ -28,12 +28,12 @@
           </n-text>
           <!-- 工具 -->
           <n-space>
-            <n-text>
+            <!-- <n-text>
               <n-badge class="go-animation-twinkle" dot :color="cardData?.release ? '#34c749' : '#fcbc40'"></n-badge>
               {{ cardData?.release ? $t('project.release') : $t('project.unreleased') }}
-            </n-text>
+            </n-text> -->
 
-            <template v-for="item in fnBtnList" :key="item.key">
+            <!-- <template v-for="item in fnBtnList" :key="item.key">
               <n-tooltip placement="bottom" trigger="hover">
                 <template #trigger>
                   <n-button size="small" @click="handleSelect(item.key)">
@@ -44,7 +44,7 @@
                 </template>
                 <component :is="item.label"></component>
               </n-tooltip>
-            </template>
+            </template> -->
           </n-space>
           <!-- end -->
         </n-space>
@@ -86,7 +86,8 @@ watch(
 
 // 处理url获取
 const requireUrl = (name: string) => {
-  return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
+  // return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
+  return new URL(`/src/assets/images/${name}`, import.meta.url).href
 }
 
 const fnBtnList = reactive([

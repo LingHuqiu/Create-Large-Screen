@@ -17,28 +17,29 @@
             object-fit="contain"
             height="180"
             preview-disabled
-            :src="requireUrl('project/moke-20211219181327.png')"
-            :alt="cardData.title"
+            :src="'http://222.222.68.137:9140/' + cardData.thumbnail"
+            :alt="cardData.large_screen_name"
             :fallback-src="requireErrorImg()"
           ></n-image>
+          <!-- <img :src="requireUrl(cardData.thumbnail)" alt="" /> -->
         </div>
       </div>
       <template #action>
         <div class="go-flex-items-center list-footer" justify="space-between">
-          <n-text class="go-ellipsis-1" :title="cardData.title">
-            {{ cardData.title || '' }}
+          <n-text class="go-ellipsis-1" :title="cardData.large_screen_name">
+            {{ cardData.large_screen_name || '' }}
           </n-text>
           <!-- 工具 -->
           <div class="go-flex-items-center list-footer-ri">
             <n-space>
-              <n-text>
+              <!-- <n-text>
                 <n-badge class="go-animation-twinkle" dot :color="cardData.release ? '#34c749' : '#fcbc40'"></n-badge>
                 {{ cardData.release ? $t('project.release') : $t('project.unreleased') }}
-              </n-text>
+              </n-text> -->
 
               <template v-for="item in fnBtnList" :key="item.key">
                 <template v-if="item.key === 'select'">
-                  <n-dropdown
+                  <!-- <n-dropdown
                     trigger="hover"
                     placement="bottom"
                     :options="selectOptions"
@@ -50,7 +51,7 @@
                         <component :is="item.icon"></component>
                       </template>
                     </n-button>
-                  </n-dropdown>
+                  </n-dropdown> -->
                 </template>
 
                 <n-tooltip v-else placement="bottom" trigger="hover">
@@ -79,7 +80,9 @@ import { renderIcon, renderLang, requireErrorImg } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn'
 import { Chartype } from '../../index.d'
-import { log } from 'console'
+import axios from 'axios'
+// imoprt require from 'require'
+
 const {
   EllipsisHorizontalCircleSharpIcon,
   CopyIcon,
@@ -94,13 +97,13 @@ const {
 const emit = defineEmits(['delete', 'resize', 'edit'])
 
 const props = defineProps({
-  cardData: Object as PropType<Chartype>
+  cardData: Object
 })
 
 // 处理url获取
-const requireUrl = (name: string) => {
-  return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
-}
+// const requireUrl = (name: string) => {
+//   return new URL(`../../../../../assets/images/${name}`, import.meta.url).href
+// }
 
 const fnBtnList = reactive([
   {

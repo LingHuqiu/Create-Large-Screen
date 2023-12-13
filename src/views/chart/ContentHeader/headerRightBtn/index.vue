@@ -24,18 +24,19 @@ const { BrowsersOutlineIcon, SendIcon, AnalyticsIcon } = icon.ionicons5
 const chartEditStore = useChartEditStore()
 
 const routerParamsInfo = useRoute()
+const { id } = routerParamsInfo.params
+  // id 标识
+  const previewId = typeof id === 'string' ? id : id[0]
 onMounted(() => {
   setTimeout(() => {
-    syncData()
+    syncData(previewId)
   },1000)
 })
 // 预览
 const previewHandle = () => {
   const path = fetchPathByName(PreviewEnum.CHART_PREVIEW_NAME, 'href')
   if (!path) return
-  const { id } = routerParamsInfo.params
-  // id 标识
-  const previewId = typeof id === 'string' ? id : id[0]
+  
   const storageInfo = chartEditStore.getStorageInfo()
   const sessionStorageInfo = getLocalStorage(StorageEnum.GO_CHART_STORAGE_LIST) || []
 
@@ -98,7 +99,7 @@ const comBtnList = computed(() => {
     return btnList
   }
   const cloneList = cloneDeep(btnList)
-  // cloneList.shift()
+  cloneList.shift()
   return cloneList
 })
 </script>

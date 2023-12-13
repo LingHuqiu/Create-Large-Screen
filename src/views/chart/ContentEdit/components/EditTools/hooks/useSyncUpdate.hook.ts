@@ -11,19 +11,20 @@ import { goDialog } from '@/utils'
 import { get } from '@/api/http'
 const { updateComponent } = useSync()
 const chartEditStore = useChartEditStore()
+const routerParamsInfo = useRoute()
 
-export const syncData = () => {
+export const syncData = (id: string) => {
+  window['$message'].success('正在同步编辑器...')
+  // routerParamsInfo.params
 
-      window['$message'].success('正在同步编辑器...')
-      // dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo() }))
-      get('data-service/api/byId', {
-        largeScreenID: "12"
-      }).then(res => {
-        let detail = JSON.parse(res.data.source[0].data_source);
-        dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail: detail }))
-      })
-    
-
+  // dispatchEvent(new CustomEvent(SavePageEnum.CHART, { detail: chartEditStore.getStorageInfo() }))
+  get('data-service/api/byId', {
+    largeScreenID: id
+  }).then(res => {
+    let detail = JSON.parse(res.data.source[0].data_source);
+    console.log(detail);
+    dispatchEvent(new CustomEvent(SavePageEnum.JSON, { detail: detail }))
+  })
 }
 
 // 同步数据到预览页

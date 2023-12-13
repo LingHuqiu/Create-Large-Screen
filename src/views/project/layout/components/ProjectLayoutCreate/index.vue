@@ -1,5 +1,5 @@
 <template>
-  <div @click="clickHandle">
+  <!-- <div @click="clickHandle">
     <n-tooltip v-if="collapsed" placement="right" trigger="hover">
       <template #trigger>
         <n-button ghost type="primary" size="small">
@@ -26,7 +26,7 @@
         {{ $t('project.create_btn') }}
       </span>
     </n-button>
-  </div>
+  </div> -->
   <CreateModal :show="modalShow" @close="closeHandle"></CreateModal>
 </template>
 <script setup lang="ts">
